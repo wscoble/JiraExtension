@@ -135,7 +135,7 @@ class FileCacheService
      */
     public function read($key)
     {
-        if (!isset($this->cacheDirectory)) {
+        if (!isset($this->cacheDirectory) || !$this->cacheDirectory) {
             return;
         }
 
@@ -153,7 +153,7 @@ class FileCacheService
      */
     public function write($key, $content, $timestamp = null)
     {
-        if (!isset($this->cacheDirectory)) {
+        if (!isset($this->cacheDirectory) || !$this->cacheDirectory) {
             return;
         }
 

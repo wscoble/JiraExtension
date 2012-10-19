@@ -59,8 +59,9 @@ class FeatureLoaderService
      */
     private function parseFeature($issue)
     {
-        $pattern = '/.code.none.(.*).code./ms';
-        $matches = array();preg_match($pattern, $issue->description, $matches);
+        $pattern = '/.code.none.\n(.*).code./ms';
+        $matches = array();
+        preg_match($pattern, $issue->description, $matches);
         if (sizeof($matches) > 0) {
             $body = $matches[1];
         } else {
@@ -78,7 +79,9 @@ class FeatureLoaderService
                $feature->addTag('fixVersion:' . str_replace(array(' ', '@'), '_', $fixVersion->name));
             }
         }
-
+        $tags = $feature->getTags();
+        $tags[] = $issue->key;
+        $feature->setTags($tags);
         return $feature;
     }
 
